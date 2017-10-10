@@ -6,14 +6,12 @@ const friends = [
   { name: 'Clay', interests: [ 'board games', 'painting' ] }
 ]
 
-const interests = []
+function getInterests (friends, interests=[]) {
+  if (!friends.length) return interests
 
-for (let i = 0; i < friends.length; i++) {
-  const friend = friends[i]
-  for (let j = 0; j < friend.interests.length; j++) {
-    const interest = friend.interests[j]
-    interests.push(interest)
-  }
+  const [friend] = friends
+  interests = interests.concat(friend.interests)
+  return getInterests(friends.slice(1), interests)
 }
 
-console.log(interests.join(' and '))
+console.log(getInterests(friends).join(' and '))

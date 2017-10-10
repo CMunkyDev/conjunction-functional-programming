@@ -9,9 +9,11 @@ const excuses = [
 
 const action = process.argv[2] || 'I wanted to complete candy crush'
 
-for (var i = 0; i < excuses.length; i++) {
-  const excuse = excuses[i]
-  excuses[i] = `${action} but ${excuse}`
+function getExcuses (excuses, result=[], action='I wanted to complete candy crush') {
+  if (!excuses.length) return result
+
+  const [excuse] = excuses
+  return getExcuses(excuses.slice(1), result.concat(`${action} but ${excuse}`), action)
 }
 
-console.log(excuses)
+console.log(getExcuses(excuses, process.argv[2]))
